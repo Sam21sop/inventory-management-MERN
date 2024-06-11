@@ -1,0 +1,42 @@
+{
+  "name": "inventory-management",
+  "version": "1.0.0",
+  "description": "inventory management web application using react",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sam21sop/inventory-management-MERN.git"
+  },
+  "keywords": [
+    "inventory",
+    "product",
+    "authentication"
+  ],
+  "author": "sopan bhere",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sam21sop/inventory-management-MERN/issues"
+  },
+  "homepage": "https://github.com/Sam21sop/inventory-management-MERN#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
