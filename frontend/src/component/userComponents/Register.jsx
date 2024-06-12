@@ -35,6 +35,7 @@ const Register = () => {
         console.log(userData);
 
         dispatch(registerUser(userData));
+        toast.success("User Created Successfully.")
         navigate('/inventory-management')
     }
 

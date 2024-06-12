@@ -28,7 +28,7 @@ const LayoutComponent = () => {
                 {/* main content  */}
                 <main className='absolute h-full ml-80 w-4/5'>
                     {
-                        isLogoutModalOpen ? <LogoutModal /> : <Outlet />
+                        isLogoutModalOpen ? <LogoutModal isLogoutModalOpen={isLogoutModalOpen} setIsLogoutmodalOpen={setIsLogoutmodalOpen} /> : <Outlet />
                     }
                 </main>
             </div>

@@ -2,13 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { loginUser } from '../../redux/userSlices/userSlice';
 
-
-
-const initialState = {
-    email: "",
-    password: ""
-};
 
 
 const Login = () => {
@@ -16,28 +11,20 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('admin@gmail.com');
+    const [password, setPassword] = useState('admin@123');
 
-    const submitFormHandler = async (e) => {
+    const submitFormHandler = (e) => {
         e.preventDefault();
-        
+
         // mandatory field validation
         if (!email || !password) {
             return toast.error("All field are Required !");
         };
 
-        if (!validateEmail(email)) {
-            return toast.error("Please enter valid email !");
-        };
-
         try {
-            const userData = await loginUser({email, password});
-            if (userData) {
-                dispatch(setLogin(true))
-                navigate('/inventory-management/admin');
-                setIsLoading(false)
-            }
+            dispatch(loginUser({ email, password }));
+            navigate('/inventory-management/admin');
         } catch (error) {
             toast.error(error.message)
             console.log(error);
@@ -75,7 +62,7 @@ const Login = () => {
                                         name="email"
                                         id="email"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="employee@company.com"
+                                        placeholder="admin@gmail.com"
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -115,7 +102,7 @@ const Login = () => {
                                     Login
                                 </button>
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Don’t have an account yet?{" "}
+                                    Don’t have an account yet?
                                     <Link
                                         to={'/inventory-management/register'}
                                         className="font-medium text-primary-600 hover:underline dark:text-primary-500"

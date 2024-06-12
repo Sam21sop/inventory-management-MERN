@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 // backend url
-const BACKEND_BASE_URL = "http://localhost:8080/api/user";
+const BACKEND_BASE_URL = "https://inventory-management-sopan.onrender.com/api/v1/user";
 
 // email validation
 const validateEmail = async (email) => {
@@ -13,7 +13,7 @@ const validateEmail = async (email) => {
 // register user
 const registerUserApiHandler = async (userData) => {
     try {
-        const response = await axios.post(`http://localhost:8080/api/user/register`, userData, {withCredentials:true});
+        const response = await axios.post(`${BACKEND_BASE_URL}/register`, userData, {withCredentials:true});
         if (response.statusText === 'OK') {
             toast.success("User Registered successfully.");
         }
@@ -43,7 +43,7 @@ const loginUserApiHandler = async (userData) => {
 //logout user
 const logoutUserApiHandler = async () => {
     try {
-        await axios.get(`${BACKEND_BASE_URL}/logout`);
+        await axios.post(`${BACKEND_BASE_URL}/logout`);
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
         toast.error(message);
