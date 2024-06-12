@@ -1,5 +1,81 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { getAllProductApiHandler } from "./productAPI";
+
+
+// create new product
+export const createProduct = createAsyncThunk(
+    'product/create',
+    async (formData, thunkAPI) => {
+        try {
+            return await productAPI.addProduct(formData);
+        } catch (error) {
+            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
+            console.log(message);
+            return thunkAPI.rejectWithValue(message);
+        };
+    }
+);
+
+
+// get all products 
+export const getAllProduct = createAsyncThunk(
+    'product/getAllProduct',
+    async (_, thunkAPI) => {
+        try {
+            return await getAllProductApiHandler();
+        } catch (error) {
+            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
+            console.log(message);
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+
+// get product by id
+export const getProduct = createAsyncThunk(
+    'product/getProduct',
+    async (productId, thunkAPI) => {
+        try {
+            return await productAPI.getProduct(productId);
+        } catch (error) {
+            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
+            console.log(message);
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
+
+// delete product by id 
+export const deleteProduct = createAsyncThunk(
+    'product/deleteProduct',
+    async (productId, thunkAPI) => {
+        try {
+            return await productAPI.deleteProduct(productId);
+        } catch (error) {
+            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
+            console.log(message);
+            return thunkAPI.rejectWithValue(message);
+        };
+    }
+);
+
+
+// update product based on id
+export const updateProduct = createAsyncThunk(
+    'product/updateProduct',
+    async ({ productId, formData }, thunkAPI) => {
+        try {
+            return await productAPI.updateProduct(productId, formData);
+        } catch (error) {
+            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
+            console.log(message);
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+)
 
 
 // define initial state
@@ -15,80 +91,6 @@ const initialState = {
     filteredProducts: []
 };
 
-
-// create new product
-const createProduct = createAsyncThunk(
-    'product/create',
-    async (formData, thunkAPI) => {
-        try {
-            return await productAPI.addProduct(formData);
-        } catch (error) {
-            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
-            console.log(message);
-            return thunkAPI.rejectWithValue(message);
-        };
-    }
-);
-
-
-// get all products 
-const getAllProduct = createAsyncThunk(
-    'product/getAllProduct',
-    async (_, thunkAPI) => {
-        try {
-            return await productAPI.getAllProduct();
-        } catch (error) {
-            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
-            console.log(message);
-            return thunkAPI.rejectWithValue(message);
-        }
-    }
-);
-
-
-// get product by id
-const getProduct = createAsyncThunk(
-    'product/getProduct',
-    async (productId, thunkAPI) => {
-        try {
-            return await productAPI.getProduct(productId);
-        } catch (error) {
-            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
-            console.log(message);
-            return thunkAPI.rejectWithValue(message);
-        }
-    }
-);
-
-
-// delete product by id 
-const deleteProduct = createAsyncThunk(
-    'product/deleteProduct',
-    async (productId, thunkAPI) => {
-        try {
-            return await productAPI.deleteProduct(productId);
-        } catch (error) {
-            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
-            console.log(message);
-            return thunkAPI.rejectWithValue(message);
-        };
-    }
-);
-
-
-// update product based on id
-const updateProduct = createAsyncThunk(
-    'product/updateProduct',
-    async ({ productId, formData }, thunkAPI) => {
-        try {
-            return await productAPI.updateProduct(productId, formData);
-        } catch (error) {
-            const message = (error.message && error.respone.data && error.respone.data.message) || error.message || error.toString();
-            console.log(message);
-            return thunkAPI.rejectWithValue(message);
-        }
-    }
-)
 
 // define product slice 
 const productSlice = createSlice({
@@ -116,8 +118,8 @@ const productSlice = createSlice({
                 state.isSuccess = true;
                 state.isError = false;
 
-                // push the product
-                state.products.push(action.payload);
+                // push the product to the array
+                state.product.push(action.payload);
                 toast.success("Product added  successfully.")
             })
             .addCase(createProduct.rejected, (state, action) => {

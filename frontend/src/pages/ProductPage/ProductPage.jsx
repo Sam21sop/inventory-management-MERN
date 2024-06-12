@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { data } from '../../db/db';
 import ProductTable from './ProductTable';
 import AddNewProduct from './AddNewProduct';
 import UpdateProduct from './UpdateProduct';
 import DeleteProduct from './DeleteProduct';
+import { getAllProduct, productSelector } from '../../redux/productSlices/productSlice';
 
 
 const ProductPage = () => {
@@ -11,6 +13,13 @@ const ProductPage = () => {
   const [addProductModal, setAddProductModal] = useState(false);
   const [updateProductModal, setUpdateProductModal] = useState(false);
   const [deleteProductModal, setDeleteProductModal] = useState(false);
+  const dispatch = useDispatch();
+  const allProduct = useSelector(productSelector);
+  console.log(allProduct);
+
+  useEffect(() => {
+    dispatch(getAllProduct());
+  }, [])
 
 
   const updateProductHandler = () => {
@@ -26,8 +35,8 @@ const ProductPage = () => {
     <>
       {
         (addProductModal && <AddNewProduct addProductModal={addProductModal} setAddProductModal={setAddProductModal} />) ||
-        (updateProductModal && <UpdateProduct updateProductModal={updateProductModal} setUpdateProductModal={setUpdateProductModal}/>) ||
-        (deleteProductModal && <DeleteProduct deleteProductModal={deleteProductModal} setDeleteProductModal={setDeleteProductModal}/>) ||
+        (updateProductModal && <UpdateProduct updateProductModal={updateProductModal} setUpdateProductModal={setUpdateProductModal} />) ||
+        (deleteProductModal && <DeleteProduct deleteProductModal={deleteProductModal} setDeleteProductModal={setDeleteProductModal} />) ||
         (
           <div className="">
             <header className=' flex h-28 justify-around items-center'>

@@ -18,6 +18,15 @@ This project is an order and inventory management application built using the ME
 - Inventory management with add, remove, and update operations.
 - Statistics generation for orders, users, and inventory.
 
+## UI Images
+### Landing Page
+![Landing Page](./frontend/public/images/landingPage.png)
+![User Registration](./frontend/public/images/userRegistration.png)
+![Admin Page](./frontend/public/images/adminHome.png)
+![Product Page](./frontend/public/images/productPage.png)
+![Category Page](./frontend/public/images/categoryPage.png)
+![Sub Category Page](./frontend/public/images/subCategoryPage.png)
+
 ## Folder Structure
 ```
 inventory-management-MERN /
